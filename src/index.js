@@ -1,9 +1,9 @@
-import Control from './Control'
-import Preview from './Preview'
+import NestedJsonEditorControl from "./NestedJsonEditorControl";
+import NestedJsonEditorPreview from "./NestedJsonEditorPreview";
 
-if (typeof window !== 'undefined') {
-  window.NestedJsonEditorControl = Control
-  window.NestedJsonEditorPreview = Preview
+if (typeof window !== "undefined") {
+  window.NestedJsonEditorControl = NestedJsonEditorControl;
+  window.NestedJsonEditorPreview = NestedJsonEditorPreview;
 }
 
-export { Control as NestedJsonEditorControl, Preview as NestedJsonEditorPreview }
+export { NestedJsonEditorControl, NestedJsonEditorPreview };

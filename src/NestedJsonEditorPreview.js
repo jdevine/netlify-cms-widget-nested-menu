@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default function Preview({ value }) {
+export default function NestedJsonEditorPreview({ value }) {
   return (
     <div>
       <h3>JSON Output:</h3>
@@ -10,6 +10,6 @@ export default function Preview({ value }) {
   );
 }
 
-Preview.propTypes = {
+NestedJsonEditorPreview.propTypes = {
   value: PropTypes.node
 };
