@@ -9,7 +9,7 @@
     "starter",
     "boilerplate"
   ],
-  "version": "0.1.1",
+  "version": "1.0.0",
   "homepage": "http://lukestorry.github.io/netlify-cms-widget-nested-json",
   "license": "MIT",
   "main": "dist/main.js",
