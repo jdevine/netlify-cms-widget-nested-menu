@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { findSectionById, addMissingFields } from "./utils";
 import placeholderData from "./placeholderData";
+import styles from "./styles";
 
 export default class Control extends React.Component {
   static propTypes = {
@@ -20,10 +21,24 @@ export default class Control extends React.Component {
     var data = JSON.parse(this.props.value).map(addMissingFields);
     this.state = { data };
 
-    this.editSectionCallback = this.editSectionCallback.bind(this);
+    this.saveSection = this.saveSection.bind(this);
+    this.deleteSection = this.deleteSection.bind(this);
   }
 
-  editSectionCallback(newSection) {
+  deleteSection(sectionId, parentId) {
+    var list = parentId
+      ? findSectionById(parentId, this.state.data).children
+      : this.state.data;
+
+    list.splice(
+      list.findIndex(s => s.id == sectionId),
+      1
+    );
+
+    this.props.onChange(JSON.stringify(this.state.data, null, 2));
+  }
+
+  saveSection(newSection) {
     var oldSection = findSectionById(newSection.id, this.state.data);
     oldSection.title = newSection.title;
     oldSection.text = newSection.text;
@@ -38,7 +53,8 @@ export default class Control extends React.Component {
         {this.state.data.map(section => (
           <Section
             data={section}
-            editSectionCallback={this.editSectionCallback}
+            saveSection={this.saveSection}
+            deleteSection={this.deleteSection}
             key={section.id}
           />
         ))}
@@ -54,84 +70,67 @@ class Section extends React.Component {
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.addChild = this.addChild.bind(this);
   }
 
   handleTitleChange(event) {
     this.setState({ title: event.target.value });
-    this.props.editSectionCallback({
+    this.props.saveSection({
       ...this.props.data,
       title: event.target.value
     });
   }
   handleTextChange(event) {
     this.setState({ text: event.target.value });
-    this.props.editSectionCallback({
+    this.props.saveSection({
       ...this.props.data,
       text: event.target.value
     });
   }
-
-  styles = {
-    section: {
-      margin: "0 auto 0.5rem auto",
-      backgroundColor: "white",
-      border: "2px solid black",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      paddingBottom: "1rem"
-    },
-    title: {
-      display: "block",
-      width: "100%",
-      height: "1.5rem",
-      padding: "0.2rem",
-      border: "none",
-      textAlign: "center",
-      fontSize: "1.2rem",
-      fontWeight: "400",
-      backgroundColor: "grey"
-    },
-    text: {
-      display: "block",
-      width: "90%",
-      height: "2rem",
-      padding: "0.2rem",
-      border: "none",
-      margin: "0.5rem",
-      fontSize: "1rem",
-      resize: "vertical"
-    },
-    childrenBox: {
-      width: "98%"
-    }
-  };
+  addChild() {
+    var newChild = addMissingFields({});
+    this.props.saveSection({
+      ...this.props.data,
+      children: this.props.data.children.concat([newChild])
+    });
+  }
 
   render() {
+    const { data, parentId, saveSection, deleteSection } = this.props;
     return (
-      <div style={this.styles.section}>
+      <div style={styles.section}>
         <input
-          style={this.styles.title}
+          style={styles.title}
           type="text"
           value={this.state.title}
           onChange={this.handleTitleChange}
         />
         <textarea
-          style={this.styles.text}
+          style={styles.text}
           type="textarea"
           value={this.state.text}
           onChange={this.handleTextChange}
         />
-        {/* {this.props.data.id} */}
-        {}
-        <div style={this.styles.childrenBox}>
-          {this.props.data.children.map(section => (
+        {/* {data.id} */}
+        <div style={styles.childrenBox}>
+          {data.children.map(section => (
             <Section
-              data={section}
               key={section.id}
-              editSectionCallback={this.props.editSectionCallback}
+              data={section}
+              saveSection={saveSection}
+              deleteSection={deleteSection}
+              parentId={data.id}
             />
           ))}
+          <button
+            style={styles.deleteButton}
+            onClick={() => deleteSection(data.id, parentId)}
+          >
+            x
+          </button>
+          <button style={styles.addButton} onClick={this.addChild}>
+            +
+          </button>
         </div>
       </div>
     );
