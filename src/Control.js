@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const placeHolderData =
-  `[{"title": "Grandparent 1","text": "Grandparent 1 description.","children": [{"title": "Parent 1","children": []},
+const placeHolderData = `[{"title": "Grandparent 1","text": "Grandparent 1 description.","children": [{"title": "Parent 1","children": []},
   {"title": "Parent 2","children": [{"title": "First Child","text": "I am the first child","children": []},
   {"title": "Second Child","text": "I am the second child","children": []}]}]},{"title": "Grandparent 2","text":
   "Grandparent 2 description.","children": [{"title": "Parent 3","children": [{"title": "Third Child","text":
@@ -27,6 +26,10 @@ export default class Control extends React.Component {
 
     this.saveSection = this.saveSection.bind(this);
     this.deleteSection = this.deleteSection.bind(this);
+    this.updateOutput = () =>
+      this.props.onChange(
+        JSON.stringify(this.state.data, ["title", "text", "children"])
+      );
   }
 
   deleteSection(sectionId, parentId) {
@@ -38,8 +41,7 @@ export default class Control extends React.Component {
       list.findIndex(s => s.id == sectionId),
       1
     );
-
-    this.props.onChange(JSON.stringify(this.state.data, null, 2));
+    this.updateOutput();
   }
 
   saveSection(newSection) {
@@ -47,7 +49,7 @@ export default class Control extends React.Component {
     oldSection.title = newSection.title;
     oldSection.text = newSection.text;
     oldSection.children = newSection.children;
-    this.props.onChange(JSON.stringify(this.state.data, null, 2));
+    this.updateOutput();
   }
 
   render() {
