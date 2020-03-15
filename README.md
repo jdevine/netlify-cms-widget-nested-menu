@@ -11,7 +11,7 @@ Similar standalone version [here](https://nested-json-editor.netlify.com/).
 
 ## GIF
 Here's an animation of the CMS widget, if you don't want to check out the demo link above.
-![Screenshot gif](demo.gif)
+![Screenshot gif](https://github.com/LukeStorry/netlify-cms-widget-nested-json/raw/master/demo.gif)
 
 ## Installation
 
