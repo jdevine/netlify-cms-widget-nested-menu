@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
-var placeholderData = require("./placeholderData");
-var utils = require("./utils");
+import { findSectionById, addMissingFields } from "./utils";
+import placeholderData from "./placeholderData";
 
 export default class Control extends React.Component {
   static propTypes = {
@@ -11,13 +11,24 @@ export default class Control extends React.Component {
   };
 
   static defaultProps = {
-    value: placeholderData.string
+    value: placeholderData
   };
 
   constructor(props) {
     super(props);
-    var data = JSON.parse(this.props.value).map(utils.addMissingFields);
+
+    var data = JSON.parse(this.props.value).map(addMissingFields);
     this.state = { data };
+
+    this.editSectionCallback = this.editSectionCallback.bind(this);
+  }
+
+  editSectionCallback(newSection) {
+    var oldSection = findSectionById(newSection.id, this.state.data);
+    oldSection.title = newSection.title;
+    oldSection.text = newSection.text;
+    oldSection.children = newSection.children;
+    this.props.onChange(JSON.stringify(this.state.data, null, 2));
   }
 
   render() {
@@ -25,7 +36,11 @@ export default class Control extends React.Component {
     return (
       <div id={forID} className={classNameWrapper}>
         {this.state.data.map(section => (
-          <Section data={section} key={section.id} />
+          <Section
+            data={section}
+            editSectionCallback={this.editSectionCallback}
+            key={section.id}
+          />
         ))}
       </div>
     );
@@ -43,9 +58,17 @@ class Section extends React.Component {
 
   handleTitleChange(event) {
     this.setState({ title: event.target.value });
+    this.props.editSectionCallback({
+      ...this.props.data,
+      title: event.target.value
+    });
   }
   handleTextChange(event) {
     this.setState({ text: event.target.value });
+    this.props.editSectionCallback({
+      ...this.props.data,
+      text: event.target.value
+    });
   }
 
   styles = {
@@ -56,8 +79,7 @@ class Section extends React.Component {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      paddingBottom: "1rem",
-      maxWidth: "60rem"
+      paddingBottom: "1rem"
     },
     title: {
       display: "block",
@@ -81,9 +103,7 @@ class Section extends React.Component {
       resize: "vertical"
     },
     childrenBox: {
-      width: "90%",
-      backgroundColor: "grey",
-      padding: "0.5rem"
+      width: "98%"
     }
   };
 
@@ -106,7 +126,11 @@ class Section extends React.Component {
         {}
         <div style={this.styles.childrenBox}>
           {this.props.data.children.map(section => (
-            <Section data={section} key={section.id} />
+            <Section
+              data={section}
+              key={section.id}
+              editSectionCallback={this.props.editSectionCallback}
+            />
           ))}
         </div>
       </div>

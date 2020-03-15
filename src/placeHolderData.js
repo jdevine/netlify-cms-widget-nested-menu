@@ -47,4 +47,4 @@
   }
 ];
 
-export var string = JSON.stringify(object, null, 2)
+export default JSON.stringify(object, null, 2);

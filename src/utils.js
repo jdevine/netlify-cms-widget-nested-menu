@@ -1,4 +1,4 @@
-﻿export var  addMissingFields = section => {
+﻿export const addMissingFields = section => {
   section.id =
     section.id ||
     Math.random()
@@ -8,4 +8,14 @@
   section.children = section.children || [];
   if (section.children) section.children.map(addMissingFields);
   return section;
+};
+
+export const findSectionById = (id, list) => {
+  for (const section of list) {
+    if (section.id === id) return section;
+    if (!section.children) continue;
+    const found = findSectionById(id, section.children);
+    if (found) return found;
+  }
+  return undefined;
 };
