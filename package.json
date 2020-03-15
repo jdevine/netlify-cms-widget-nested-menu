@@ -9,7 +9,7 @@
     "starter",
     "boilerplate"
   ],
-  "version": "1.0.7",
+  "version": "1.1.0",
   "homepage": "http://lukestorry.github.io/netlify-cms-widget-nested-json",
   "license": "MIT",
   "main": "dist/main.js",
@@ -33,7 +33,7 @@
     "webpack-serve": "0.3.1"
   },
   "dependencies": {
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^16.13.0"
