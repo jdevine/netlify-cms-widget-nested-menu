@@ -55,6 +55,7 @@ export default class Control extends React.Component {
             data={section}
             saveSection={this.saveSection}
             deleteSection={this.deleteSection}
+            depth={0}
             key={section.id}
           />
         ))}
@@ -67,6 +68,8 @@ class Section extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: props.data.title, text: props.data.text };
+    this.colour = styles.sectionColours[this.props.depth] || "white";
+    this.descriptionHeight = Math.max(2, this.props.data.text.length / 40);
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -96,17 +99,27 @@ class Section extends React.Component {
   }
 
   render() {
-    const { data, parentId, saveSection, deleteSection } = this.props;
+    const { data, parentId, depth, saveSection, deleteSection } = this.props;
     return (
-      <div style={styles.section}>
+      <div
+        style={{
+          ...styles.section,
+          background: this.colour
+        }}
+      >
         <input
-          style={styles.title}
+          style={{
+            ...styles.title,
+            background: this.colour
+          }}
           type="text"
+          placeholder="Section Title"
           value={this.state.title}
           onChange={this.handleTitleChange}
         />
         <textarea
-          style={styles.text}
+          style={{ ...styles.text, height: this.descriptionHeight + "rem" }}
+          placeholder="Section Description"
           type="textarea"
           value={this.state.text}
           onChange={this.handleTextChange}
@@ -120,6 +133,7 @@ class Section extends React.Component {
               saveSection={saveSection}
               deleteSection={deleteSection}
               parentId={data.id}
+              depth={depth + 1}
             />
           ))}
           <button
