@@ -2,6 +2,8 @@
 
 ### A custom Netlify CMS widget for editing nested JSON data.
 
+[![npm version](https://img.shields.io/npm/v/netlify-cms-widget-nested-json)](https://www.npmjs.com/netlify-cms-widget-nested-json)
+
 [Check out a demo!](https://netlify-cms-widget-nested-json.netlify.com/demo)
 
 
@@ -25,7 +27,7 @@ CMS.registerWidget('NestedJsonEditor', NestedJsonEditorControl, NestedJsonEditor
 ### Via `script` tag:
 
 ```html
-<script src="https://unpkg.com/netlify-cms-widget-nested-json@^1.0.0"></script>
+<script src="https://unpkg.com/netlify-cms-widget-nested-json"></script>
 
 <script>
   CMS.registerWidget('NestedJsonEditor', NestedJsonEditorControl, NestedJsonEditorPreview)

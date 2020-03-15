@@ -23,6 +23,6 @@ const config = {
   }],
 }
 
-CMS.registerWidget('test', Control, Preview)
+CMS.registerWidget('test', NestedJsonEditorControl, NestedJsonEditorPreview)
 
 init({ config })

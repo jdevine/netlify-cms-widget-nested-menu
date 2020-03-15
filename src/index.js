@@ -2,8 +2,8 @@ import Control from './Control'
 import Preview from './Preview'
 
 if (typeof window !== 'undefined') {
-  window.Control = Control
-  window.Preview = Preview
+  window.NestedJsonEditorControl = Control
+  window.NestedJsonEditorPreview = Preview
 }
 
-export { Control, Preview }
+export { Control as NestedJsonEditorControl, Preview as NestedJsonEditorPreview }
