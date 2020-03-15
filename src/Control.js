@@ -55,7 +55,11 @@ export default class Control extends React.Component {
   render() {
     const { forID, value, onChange, classNameWrapper } = this.props;
     return (
-      <div id={forID} className={classNameWrapper}>
+      <div
+        id={forID}
+        className={classNameWrapper}
+        style={{ padding: "0.5rem" }}
+      >
         {this.state.data.map(section => (
           <Section
             data={section}
@@ -165,7 +169,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingBottom: "0.2rem"
+    padding: "0.5rem 0 0.5rem 0"
   },
   sectionColours: [
     "#ff5555",
