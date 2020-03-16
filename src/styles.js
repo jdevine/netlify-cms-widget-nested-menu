@@ -2,7 +2,6 @@ export default {
   section: {
     width: "98%",
     margin: "0 auto 0.5rem auto",
-    padding: "0.5rem 0 0.5rem 0",
     border: "2px solid black",
     display: "flex",
     flexDirection: "column",
@@ -21,7 +20,7 @@ export default {
     display: "block",
     width: "100%",
     height: "1.5rem",
-    padding: "0.2rem",
+    padding: "1rem",
     border: "none",
     textAlign: "center",
     fontSize: "1.2rem",
@@ -40,19 +39,21 @@ export default {
     opacity: "0.9"
   },
   addButton: {
-    textAlign: "left",
     marginLeft: "1.5rem",
-    marginBottom: "-0.5rem",
-    width: "100%",
+    marginBottom: "-1rem",
+    marginRight: "98%",
+    width: "1.5rem",
     border: "none",
+    padding: "0.5rem",
     backgroundColor: "transparent"
   },
   deleteButton: {
-    textAlign: "right",
-    marginTop: "-0.5rem",
     marginRight: "1.5rem",
-    width: "100%",
+    marginTop: "-1rem",
+    marginLeft: "98%",
+    width: "1.5rem",
     border: "none",
+    padding: "0.5rem",
     backgroundColor: "transparent",
     color: "#e22"
   }

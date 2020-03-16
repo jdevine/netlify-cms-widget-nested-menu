@@ -6,7 +6,7 @@ export default class Section extends React.Component {
   constructor(props) {
     super(props);
     this.state = { title: props.data.title, text: props.data.text };
-    this.colour = styles.sectionColours[this.props.depth] || "white";
+    this.colour = styles.sectionColours[this.props.depth];
     this.descriptionHeight = Math.max(2, this.props.data.text.length / 40);
     this.delete = () =>
       this.props.callbacks.del(this.props.data.id, this.props.parentId);
@@ -32,9 +32,9 @@ export default class Section extends React.Component {
 
   render() {
     return (
-      <div style={{ ...styles.section, background: this.colour }}>
+      <div style={{ ...styles.section, background: this.colour || "white" }}>
         <input
-          style={{ ...styles.title, background: this.colour }}
+          style={{ ...styles.title, background: this.colour || "grey" }}
           type="text"
           placeholder="Section Title"
           value={this.state.title}
