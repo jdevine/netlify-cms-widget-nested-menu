@@ -1,6 +1,6 @@
 {
-  "name": "netlify-cms-widget-nested-json",
-  "description": "A custom Netlify CMS widget for editing nested JSON data.",
+  "name": "netlify-cms-widget-nested-menu",
+  "description": "A custom Netlify CMS widget for editing nested menu JSON data.",
   "keywords": [
     "netlify",
     "netlify-cms",
@@ -8,10 +8,12 @@
     "widget",
     "json",
     "editor",
-    "nested-json"
+    "nested-json",
+    "sorted",
+    "menu"
   ],
-  "version": "1.1.3",
-  "homepage": "http://lukestorry.github.io/netlify-cms-widget-nested-json",
+  "version": "1.1.4",
+  "homepage": "https://github.com/jdevine/netlify-cms-widget-nested-menu",
   "license": "MIT",
   "main": "dist/main.js",
   "devDependencies": {
@@ -42,7 +44,7 @@
   "scripts": {
     "serve": "NODE_OPTIONS=--openssl-legacy-provider webpack-serve --log-level debug --open-path /#/collections/test/entries/test",
     "demo": "NODE_OPTIONS=--openssl-legacy-provider webpack --display errors-only --devtool source-map",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider webpack",
     "lint": "prettier --write ./src/*.js",
     "prepublishOnly": "yarn build"
   }
