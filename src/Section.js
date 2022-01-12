@@ -5,11 +5,25 @@ import SectionList from "./SectionList";
 export default class Section extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { title: props.data.title, text: props.data.text };
+    this.state = {
+      title: props.data.title,
+      text: props.data.text,
+    };
+
     this.colour = styles.sectionColours[this.props.depth];
+
     this.descriptionHeight = Math.max(2, this.props.data.text.length / 40);
+
     this.delete = () =>
       this.props.callbacks.del(this.props.data.id, this.props.parentId);
+
+    this.moveUp = () => {
+      return this.props.callbacks.moveUp(this.props.data.id, this.props.parentId);
+    }
+
+    this.moveDown = () => {
+      return this.props.callbacks.moveDown(this.props.data.id, this.props.parentId);
+    }
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -22,6 +36,7 @@ export default class Section extends React.Component {
       title: event.target.value
     });
   }
+
   handleTextChange(event) {
     this.setState({ text: event.target.value });
     this.props.callbacks.save({
@@ -32,17 +47,17 @@ export default class Section extends React.Component {
 
   render() {
     return (
-      <div style={{ ...styles.section, background: this.colour || "white" }}>
+      <div style={styles.section}>
         <input
           style={{ ...styles.title, background: this.colour || "grey" }}
           type="text"
-          placeholder="Section Title"
+          placeholder="Menu Label"
           value={this.state.title}
           onChange={this.handleTitleChange}
         />
-        <textarea
-          style={{ ...styles.text, height: this.descriptionHeight + "rem" }}
-          placeholder="Section Description"
+        <input type="text"
+          style={styles.text}
+          placeholder="Path"
           type="textarea"
           value={this.state.text}
           onChange={this.handleTextChange}
@@ -54,9 +69,19 @@ export default class Section extends React.Component {
           callbacks={this.props.callbacks}
         />
 
-        <button style={styles.deleteButton} onClick={this.delete}>
-          x
-        </button>
+        <div class="buttons">
+          <button onClick={this.moveUp}>
+              &#8593;
+          </button>
+
+          <button onClick={this.delete}>
+            x
+          </button>
+
+          <button onClick={this.moveDown}>
+            &#8595;
+          </button>
+        </div>
       </div>
     );
   }

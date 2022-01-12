@@ -23,6 +23,8 @@ export default class NestedJsonEditorControl extends React.Component {
     this.callbacks = {
       add: this.addSection.bind(this),
       del: this.deleteSection.bind(this),
+      moveUp: this.moveSectionUp.bind(this),
+      moveDown: this.moveSectionDown.bind(this),
       save: this.saveSection.bind(this)
     };
 
@@ -45,6 +47,28 @@ export default class NestedJsonEditorControl extends React.Component {
       list.findIndex(s => s.id == sectionId),
       1
     );
+    this.updateOutput();
+  }
+
+  moveSectionUp(sectionId, parentId) {
+    this.moveSection(sectionId, parentId, -1);
+  }
+
+  moveSectionDown(sectionId, parentId) {
+    this.moveSection(sectionId, parentId, 1);
+  }
+
+  moveSection(sectionId, parentId, dist){
+    var list = findSubList(parentId, this.state.data);
+    var currentIndex = list.findIndex(s => s.id == sectionId);
+    var targetIndex = currentIndex + dist;
+
+    if (targetIndex < 0 || targetIndex > (list.length - 1)) {
+      return;
+    }
+
+    list.splice(targetIndex, 0, list.splice(currentIndex,1)[0]);
+
     this.updateOutput();
   }
 

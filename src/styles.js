@@ -17,8 +17,6 @@ export default {
     "#cc99ff"
   ],
   title: {
-    display: "block",
-    width: "100%",
     height: "1.5rem",
     padding: "1rem",
     border: "none",
@@ -28,15 +26,12 @@ export default {
     background: "grey"
   },
   text: {
-    display: "block",
     width: "90%",
-    height: "2rem",
+    height: "1.5rem",
     padding: "0.2rem",
-    border: "none",
     margin: "0.5rem",
     fontSize: "1rem",
     resize: "vertical",
-    opacity: "0.9"
   },
   addButton: {
     marginLeft: "1.5rem",
@@ -56,5 +51,10 @@ export default {
     padding: "0.5rem",
     backgroundColor: "transparent",
     color: "#e22"
+  },
+  moveButton: {
+    marginRight: "1.5rem",
+    width: "1.5rem",
+    padding: "0.5rem"
   }
 };

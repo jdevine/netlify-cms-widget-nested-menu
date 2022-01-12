@@ -15,12 +15,13 @@ export default class SectionList extends React.Component {
             callbacks={this.props.callbacks}
           />
         ))}
+        <div class="buttons">
         <button
-          style={styles.addButton}
           onClick={() => this.props.callbacks.add(this.props.parentId)}
         >
           +
         </button>
+        </div>
       </React.Fragment>
     );
   }
